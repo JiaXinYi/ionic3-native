@@ -13,3 +13,7 @@
 ##### $ ionic cordova plugin add cordova-plugin-inappbrowser
 ##### $ npm install --save @ionic-native/in-app-browser
 
+##### 3.拍照插件
+##### $ ionic cordova plugin add cordova-plugin-camera
+##### $ npm install --save @ionic-native/camera
+

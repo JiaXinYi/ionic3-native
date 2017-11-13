@@ -13,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ZBar, ZBarOptions } from '@ionic-native/zbar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SplashScreen,
     ZBar,
     InAppBrowser,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -7,4 +7,18 @@
 </ion-header>
 
 <ion-content padding>
+
+  <button ion-button full (click)=getPictureByCamera()>拍照</button>
+  <ion-list *ngFor="let image of images" >
+     <ion-item>
+    <img src="{{image.src}}">
+  </ion-item> 
+  <p>{{image.src}}</p>
+  
+  </ion-list>
+
+  <button ion-button full (click)=gerPictureByLibrary()>从相册选择</button>
+  <button ion-button full>上传</button>
+
+
 </ion-content>
