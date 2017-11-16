@@ -17,6 +17,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { CallNumber } from '@ionic-native/call-number';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CallNumber } from '@ionic-native/call-number';
     BarcodeScanner,
     QRScanner,
     CallNumber,
+    File,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
