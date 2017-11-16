@@ -5,7 +5,7 @@
 #### 4.ionic serve
 #### 5.用到的插件要装，按顺序如下 
 
-##### 1.扫描插件cszbar
+##### 1.扫描插件cszbar（三个扫描插件互相会冲突，安装新的要移除前一个，移除命令为ionic cordova plugin rm）
 ##### $ ionic cordova plugin add cordova-plugin-cszbar
 ##### $ npm install --save @ionic-native/zbar
 #####  barcodescanner
@@ -23,3 +23,6 @@
 ##### $ ionic cordova plugin add cordova-plugin-camera
 ##### $ npm install --save @ionic-native/camera
 
+##### 4.打电话插件
+##### $ ionic cordova plugin add call-number
+##### $ npm install --save @ionic-native/call-number
