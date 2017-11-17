@@ -5,9 +5,20 @@
 </ion-header>
 
 <ion-content padding>
-<button ion-button full (click)="scan()"><ion-icon name="qr-scanner"></ion-icon>二维码扫描</button>
-<button ion-button full (click)="goUrl()">浏览器访问例子</button>
-<button ion-button full (click)="callNum()">打电话</button>
-<button ion-button full (click)="checkFile()">检查是否存在文件夹</button>
-
+  <ion-slides fullscreen *ngIf="isWatchDetail == true">
+    <ion-slide>
+      <h2>{{imgsrcs[0].name}}双击放大缩小</h2>
+      <img src={{imgsrcs[0].src}} alt="图" (click)="doClick($event)" (pan)="panMove($event)">
+    </ion-slide>
+  </ion-slides>
+  <div *ngIf="isWatchDetail !== true">
+      <button ion-button full (click)="scan()">
+          <ion-icon name="qr-scanner"></ion-icon>二维码扫描</button>
+        <button ion-button full (click)="goUrl()">浏览器访问例子</button>
+        <button ion-button full (click)="callNum()">打电话</button>
+        <button ion-button full (click)="checkFile()">检查是否存在文件夹</button>
+        <p>点击图片全屏放大查看</p>
+        <img src={{imgsrcs[0].src}} alt="小图" (click)="showImage($event)" style="width:40px;">
+      
+  </div>
 </ion-content>
