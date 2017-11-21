@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ZBar, ZBarOptions } from '@ionic-native/zbar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -10,6 +10,9 @@ import { File } from '@ionic-native/file';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  @ViewChild('image') image;
+
   // 第一次点击时间
   temp: any;
   // 第二次点击时间
@@ -30,6 +33,16 @@ export class HomePage {
     { name: '图1', src: 'assets/imgs/logo.png' },
     { name: '图2', src: 'assets/icon/favicon.ico' }
   ]
+  private adjustScale = 2;
+	private adjustDeltaX = 0;
+	private adjustDeltaY = 0;
+
+  private currentScale = 2;
+  private currentDeltaX = 0;
+  private currentDeltaY = 0;
+
+  private allowedXMargin = 0;
+  private allowedYMargin = 0;
   constructor(
     public navCtrl: NavController,
     private zbar: ZBar,
@@ -94,7 +107,6 @@ export class HomePage {
   }
   //单击关闭图片滑动页，需要判断是不是双击
   doClick(ev: any) {
-    // // 
     clearTimeout(this.timeout);
     if (!this.temp) {
       this.temp = new Date();
@@ -146,18 +158,53 @@ export class HomePage {
 
   }
   // 移动图片
-  panMove(ev: any) {
+  panStart(ev: any) {
     if (this.isZoom) {
-      this.isPan = !this.isPan;
-      console.log("pan");
-      let imgWrap = ev.target.parentElement.parentElement;
+      let imageView = this.image.nativeElement;
+      const highResImgWidth = imageView.clientWidth;
+      const originalImageWidth = imageView.offsetWidth;
+      const originalImageHeight = imageView.offsetHeight;
 
-      let evX = ev.deltaX;
-      let evY = ev.deltaY;
-      if (this.isWatchDetail && this.isPan) {
-        imgWrap.style.transform = 'translate(' + (evX + this.initalX) + 'px,' + (evY + this.initalY) + 'px)';
-        imgWrap.style.transition = 'transform 0s';
-      }
+      this.allowedXMargin = ((originalImageWidth * this.currentScale) - originalImageWidth) / 4;
+      this.allowedYMargin = ((originalImageHeight * this.currentScale) - originalImageHeight) / 4;
+      console.log(highResImgWidth);
+      console.log(originalImageWidth);
+      console.log(originalImageHeight);
+      console.log(this.allowedXMargin);
+      console.log(this.allowedYMargin);
     }
   }
+  panEnd(ev: any) {
+		this.adjustDeltaX = this.currentDeltaX;
+    this.adjustDeltaY = this.currentDeltaY;
+    console.log(this.adjustDeltaX);
+    console.log(this.adjustDeltaY);
+  }
+  panMove(ev: any) {
+    if (this.isZoom) {
+      console.log('panmove');
+      // this.isPan = !this.isPan;
+      this.currentDeltaX = this.boundAdjustement(Math.floor(this.adjustDeltaX + ev.deltaX / this.currentScale), this.allowedXMargin);
+      this.currentDeltaY = this.boundAdjustement(Math.floor(this.adjustDeltaY + ev.deltaY / this.currentScale), this.allowedYMargin);
+
+      // this.setImageContainerTransform();
+      let imgPosition = ev.target;
+      imgPosition.style.transform = `scale(${this.currentScale})`;
+      imgPosition.style.transform= `translate(${this.currentDeltaX}px, ${this.currentDeltaY}px)`;
+    }
+  }
+  boundAdjustement(adjustement, bound) {
+		if (adjustement > bound || adjustement < -bound) {
+			return Math.min(bound, Math.max(adjustement, -bound));
+		}
+		return adjustement;
+  }
+  // setImageContainerTransform() {
+    
+	// 	const transforms = [];
+	// 	transforms.push(`scale(${this.currentScale})`);
+	// 	transforms.push(`translate(${this.currentDeltaX}px, ${this.currentDeltaY}px)`);
+
+	// 	this.renderer.setElementStyle(this.image, this.platform.Css.transform, transforms.join(' '));
+	// }
 }
