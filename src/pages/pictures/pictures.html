@@ -1,0 +1,55 @@
+<ion-content class="gallery-modal"
+  no-bounce
+  [ngStyle]="modalStyle"
+  (window:resize)="resize($event)"
+>
+  <button class="close-button" ion-button icon-only (click)="dismiss()">
+    <ion-icon name="ios-close"></ion-icon>
+  </button>
+
+  <!-- 页面展示的图片-->
+  <!-- <div class="image-on-top" [hidden]="sliderLoaded">
+    <img src={{photos[1].sr}}c alt="">
+    <zoomable-image
+      [photo]="initialImage"
+      [resizeTriggerer]="resizeTriggerer"
+      [wrapperWidth]="width"
+      [wrapperHeight]="height"
+    ></zoomable-image>
+  </div> -->
+  <!-- 滑动图片 -->
+  <ion-slides class="slider"
+    #slider
+    [initialSlide]="initialSlide"
+    [ngStyle]="slidesStyle"
+  >
+    <ion-slide *ngFor="let photo of photos;" >
+        <ion-scroll #ionScrollContainer scrollX="true" scrollY="true" zoom="false" class="zoom">
+            <div class="image"
+              touch-events
+              direction="y"
+              (doubletap)="doubleTapEvent($event)"
+              (onpan)="panEvent($event)"
+              [ngStyle]="containerStyle"
+            >
+            <div class="fitted-image">
+                <ion-spinner [hidden]="!loading"></ion-spinner>
+                <img
+                  [src]="photo.src"
+                  [ngStyle]="imageStyle"
+                  (load)="imageLoad($event)"
+                  [hidden]="loading"
+                  alt=""
+                  (onImageResized)="handleImageResized($event)"
+                />
+              </div>
+            </div>
+          </ion-scroll>
+          
+          <div
+            class="fitted-image-title"
+            *ngIf="photo.title"
+          >{{ photo.title }}</div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

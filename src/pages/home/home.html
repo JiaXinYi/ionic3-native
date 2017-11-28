@@ -5,22 +5,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-slides fullscreen *ngIf="isWatchDetail == true">
-    <ion-slide *ngFor="let imgsrc of imgsrcs">
-      <div #imageContainer>
-        <!-- <h2>{{imgsrcs[0].name}}双击放大缩小</h2> -->
-        <img 
-            src={{imgsrc.src}} 
-            #image alt="图" 
-            (click)="doClick($event)" 
-            (panstart)="panStart($event)" 
-            (panend)="panEnd($event)"
-            (pan)="panMove($event)"
-        >
-      </div>
-    </ion-slide>
-  </ion-slides>
-  <div *ngIf="isWatchDetail !== true">
+
+  <div>
     <button ion-button full (click)="scan()">
       <ion-icon name="qr-scanner"></ion-icon>二维码扫描</button>
     <button ion-button full (click)="goUrl()">浏览器访问例子</button>

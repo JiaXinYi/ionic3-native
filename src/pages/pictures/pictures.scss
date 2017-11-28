@@ -1,0 +1,119 @@
+page-pictures {
+  .gallery-modal {
+    position: relative;
+    overflow: hidden;
+    .close-button {
+      position: absolute;
+      top: 10px;
+      left: 5px;
+      background: none;
+      box-shadow: none;
+      z-index: 10;
+      &.button-ios {
+        top: 20px;
+      }
+    }
+    .slider {
+      /deep/ .slide-zoom {
+        position: relative;
+        height: 100%;
+      }
+    }
+    // .image-on-top {
+    //   display: block;
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 100%;
+    //   z-index: 10;
+    //   fitted-image {
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    //   }
+    // }
+    .image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .zoom {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      ion-scroll {
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        white-space: nowrap;
+        /deep/ .scroll-zoom-wrapper {
+          width: 100%;
+          height: 100%;
+        }
+        .image {
+          display: inline-block;
+          position: relative;
+          min-width: 100%;
+          min-height: 100%;
+          transform-origin: left top;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: contain;
+          text-align: left;
+          vertical-align: top;
+          fitted-image {
+            transform-origin: left top;
+            pointer-events: none;
+          }
+        }
+      }
+      .fitted-image-title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: white;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+        z-index: 1;
+      }
+      .fitted-image {
+        display: inline-block;
+        position: relative;
+    
+        transform-origin: left top;
+    
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+    
+        text-align: left;
+        vertical-align: top;
+    
+        ion-spinner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+    
+        img {
+          display: inline-block;
+          min-width: 0;
+          max-width: none;
+          transform-origin: left top;
+          vertical-align: top;
+          pointer-events: none;
+        }
+      }
+    }
+    
+  }
+}
